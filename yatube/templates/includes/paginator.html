@@ -1,0 +1,33 @@
+<nav aria-label="...">
+  <ul class="pagination">
+    {% if posts.has_previous %}
+    <li class="page-item">
+      <a class="page-link" href="?page=1" style="color: black;">&laquo; первая</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="?page={{ posts.previous_page_number }}" style="color: black;">&laquo;</a>
+    </li>
+    {% endif %}
+
+    {% if posts.paginator.num_pages %}
+    {% if posts.has_previous or posts.has_next %}
+    <li class="page-item disabled">
+      <a class="page-link" href="#" tabindex="-1" aria-disabled="true" aria-current="false" style="color: black;">{{ posts.number }} из {{ posts.paginator.num_pages }}</a>
+    </li>
+    {% else %}
+    <li class="page-item disabled" aria-current="page">
+      <span class="page-link" style="color: black;">{{ posts.number }} из {{ posts.paginator.num_pages }}</span>
+    </li>
+    {% endif %}
+    {% endif %}
+
+    {% if posts.has_next %}
+    <li class="page-item">
+      <a class="page-link" href="?page={{ posts.next_page_number }}" style="color: black;">&raquo;</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="?page={{ posts.paginator.num_pages }}" style="color: black;">последняя &raquo;</a>
+    </li>
+    {% endif %}
+  </ul>
+</nav>

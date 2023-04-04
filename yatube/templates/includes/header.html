@@ -1,0 +1,47 @@
+{% load static %}
+
+<nav class="navbar navbar-light bg-light navbar-expand-lg">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'posts:index' %}">
+            <img src="{% static 'img/logo.png' %}" width="30" height="30"
+                 class="d-inline-block align-top" alt="">
+            <span style="color:red">Ya</span>tube
+        </a>
+
+        <ul class="navbar-nav ms-auto">
+            {% if request.user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link {% if view_name  == 'posts:post_create' %}active{% endif %}"
+                   href="{% url 'posts:post_create' %}">Новая запись</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link link-light {% if view_name  == 'users:password_change_form' %}active{% endif %}"
+                   href="{% url 'users:password_change_form' %}">Изменить
+                    пароль</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link link-light {% if view_name  == 'users:logout' %}active{% endif %}"
+                   href="{% url 'users:logout' %}">Выйти</a>
+            </li>
+            <li class="nav-item d-flex align-items-center">
+                <strong class="mr-2">Пользователь:</strong>
+            </li>
+            <li>
+                <a class="nav-link"
+                   href="{% url 'posts:profile' user.username %}"><em>{{user.username}}</em></a>
+            </li>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link link-light {% if view_name  == 'users:login' %}active{% endif %}"
+                   href="{% url 'users:login' %}">Войти</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link link-light" href="{% url 'users:signup' %}">Регистрация</a>
+            </li>
+            {% endif %}
+        </ul>
+        </div>
+</nav>
+
+

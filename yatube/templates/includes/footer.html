@@ -1,0 +1,16 @@
+<footer>
+    <div class="footer-copyright text-center py-3">
+        <hr>
+        <ul class="nav justify-content-center">
+            <li class="nav-item">
+                <a class="nav-link {% if view_name  == 'about:author' %}active text-dark{% else %}text-muted{% endif %}"
+                   href="{% url 'about:author' %}">Об авторе</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {% if view_name  == 'about:tech' %}active text-dark{% else %}text-muted{% endif %}"
+                   href="{% url 'about:tech' %}">Технологии</a>
+            </li>
+        </ul>
+        <p class="mt-2 mb-0 text-muted">&copy; {{ year }} YaTube</p>
+    </div>
+</footer>

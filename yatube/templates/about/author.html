@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Об авторе проекта{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 pt-5">
+            <h1>Привет, я автор</h1>
+            <p>
+                Donec dictum vulputate laoreet. Aenean fringilla felis ut
+                scelerisque ornare.
+                Maecenas facilisis placerat ex, et tincidunt dolor semper eu.
+                Proin sollicitudin lacus nisl, sit amet convallis nibh
+                pellentesque eu.
+                Cras elementum nisi egestas, scelerisque urna at, maximus
+                lacus.
+                Quisque rutrum gravida tortor, eget suscipit elit viverra eget.
+                Suspendisse potenti. Curabitur vehicula nisl nec lorem
+                ultricies,
+                non efficitur felis tristique. Mauris orci nisi, egestas vel
+                enim ut,
+                tristique ultricies arcu. Mauris ultricies, lorem a malesuada
+                pharetra,
+                odio justo convallis risus, mattis faucibus nisi odio eu erat.
+                Praesent elementum nisl quam, ac rutrum tellus rutrum vitae.
+                Proin tellus purus, congue fermentum diam ac, pellentesque
+                rhoncus nisl.
+                Nulla aliquet rhoncus nibh. Phasellus fringilla orci leo.
+            </p>
+        </div>
+        <div class="col-md-6 pt-5">
+            <img src="{% static 'img/ham1.png' %}" alt="My photo"
+                 style="margin-top: 15px; width: 300px; height: 300px;">
+
+        </div>
+    </div>
+</div>
+{% endblock %}

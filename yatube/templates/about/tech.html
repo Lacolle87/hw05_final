@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %}Технологии{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 pt-5">
+            <aside>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <a href="#python" class="text-dark">Python</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="#django" class="text-dark">Django</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="#javascript" class="text-dark">JavaScript</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="#react" class="text-dark">React</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="#aws" class="text-dark">AWS</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="#docker" class="text-dark">Docker</a>
+                    </li>
+                </ul>
+            </aside>
+        </div>
+        <div class="col-md-8 pt-5">
+            <article>
+                <h1>Технологии</h1>
+                <p>Technology has transformed the way we live and work. The
+                    pace of technological advancements is accelerating every
+                    day, and it is crucial for businesses and individuals to
+                    stay up-to-date with the latest technologies to remain
+                    competitive.</p>
+                <h2 id="python">Python</h2>
+                <p>Python is a versatile programming language that is widely
+                    used for web development, data analysis, artificial
+                    intelligence, and scientific computing. Its simple syntax
+                    and vast collection of libraries make it a popular choice
+                    among developers.</p>
+                <h2 id="django">Django</h2>
+                <p>Django is a high-level Python web framework that simplifies
+                    web development by providing common functionalities like
+                    authentication, routing, and database management. It
+                    follows the Model-View-Template (MVT) pattern and is highly
+                    scalable.</p>
+                <h2 id="javascript">JavaScript</h2>
+                <p>JavaScript is a client-side scripting language that is used
+                    for creating interactive web pages. It allows developers to
+                    add dynamic elements to a web page and is supported by all
+                    major browsers.</p>
+                <h2 id="react">React</h2>
+                <p>React is a JavaScript library that simplifies the process of
+                    creating complex user interfaces by breaking them down into
+                    reusable components. It is widely used for building
+                    single-page applications and is highly performant.</p>
+                <h2 id="aws">AWS</h2>
+                <p>Amazon Web Services (AWS) is a cloud computing platform that
+                    provides a wide range of services like computing, storage,
+                    and database management. It is highly scalable and
+                    cost-effective, making it a popular choice among businesses
+                    of all sizes.</p>
+                <h2 id="docker">Docker</h2>
+                <p>Docker is a containerization platform that simplifies the
+                    process of deploying and running applications. It allows
+                    developers to package their applications along with their
+                    dependencies into a single container that can be easily
+                    deployed across different environments.</p>
+            </article>
+        </div>
+    </div>
+</div>
+{% endblock %}

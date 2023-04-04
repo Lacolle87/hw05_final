@@ -1,0 +1,38 @@
+{% load user_filters %}
+{% load static %}
+{% if user.is_authenticated %}
+  <div class="card my-4">
+    <h5 class="card-header">Добавить комментарий:</h5>
+    <div class="card-body">
+      <form method="post" action="{% url 'posts:add_comment' post.id %}">
+        {% csrf_token %}
+        <div class="form-group mb-2">
+          {{ form.text|addclass:"form-control" }}
+        </div>
+        <button type="submit" class="btn btn-outline-dark">Отправить</button>
+      </form>
+    </div>
+  </div>
+{% endif %}
+<h4>Комментарии:</h4>
+{% for comment in comments %}
+  <div class="media mb-4">
+    <div class="media-body">
+      <h5 class="mt-0">
+        <a href="{% url 'posts:profile' comment.author.username %}" class="text-dark">
+          {{ comment.author.username }}
+        </a>
+      </h5>
+      <p>
+        {{ comment.text }}
+      </p>
+      {% if user.is_authenticated and comment.author == user %}
+  <form id="delete-form-{{ comment.pk }}" method="post" action="{% url 'posts:delete_comment' comment.pk %}">
+    {% csrf_token %}
+    <button type="button" class="btn btn-sm  btn-outline-danger" onclick="showConfirmationModal('{{ comment.pk }}')">Удалить</button>
+  </form>
+{% endif %}
+      {% include 'includes/script.html' %}
+    </div>
+  </div>
+{% endfor %}

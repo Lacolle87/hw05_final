@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load thumbnail %}
+{% block title %}
+Пост {{ post.text|truncatechars:30 }}
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                Дата публикации: {{ post.pub_date|date:"d E Y" }}
+            </li>
+            {% if post.group %}
+            <li class="list-group-item">
+                <strong>Группа: </strong>{{ post.group.title }}
+                <br>
+                <a href="{% url 'posts:group_list' post.group.slug %}"
+                   class="text-dark">
+                    все записи группы
+                </a>
+            </li>
+            {% endif %}
+            <li class="list-group-item">
+                <strong>Автор: </strong><a
+                    href="{% url 'posts:profile' post.author.username %}"
+                    class="text-dark">{{ post.author.get_full_name }}</a>
+                <br>
+                <a href="{% url 'posts:profile' post.author %}"
+                   class="text-dark">
+                    все посты пользователя
+                </a>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                Всего постов автора: {{ post.author.posts.count }}
+            </li>
+        </ul>
+        {% thumbnail post.image "960x339" crop="center" upscale=True as im %}
+        <img class="card-img my-2" src="{{ im.url }}">
+        {% endthumbnail %}
+        <p>
+            {{ post.text|linebreaks }}
+        </p>
+        {% if post.author == user %}
+        <div class="d-inline-block">
+            <button class="btn btn-outline-dark"
+                    onclick="window.location.href='{% url 'posts:post_edit' post.pk %}'">
+                Редактировать
+            </button>
+
+            <button class="btn btn-outline-danger"
+                    onclick="window.location.href='{% url 'posts:post_delete' post.pk %}'">
+                Удалить
+            </button>
+        </div>
+        <hr class="mt-3">
+        {% endif %}
+        {% include 'posts/comments.html' %}
+
+        </article>
+    </div>
+</div>
+</div>
+{% include 'includes/script.html' %}
+{% endblock %}
