@@ -13,6 +13,7 @@ class PostForm(forms.ModelForm):
             raise forms.ValidationError('Текст поста должен быть заполнен')
         return data
 
+
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment

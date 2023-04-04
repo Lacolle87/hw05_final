@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.test import Client, TestCase
 from django.core.cache import cache
 
-from posts.models import Post, Group, User, Comment, Follow
+from posts.models import Post, Group, User, Comment
 
 
 class PostURLTests(TestCase):
