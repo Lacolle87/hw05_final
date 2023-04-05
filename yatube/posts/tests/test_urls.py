@@ -5,6 +5,7 @@ from django.test import Client, TestCase
 from django.core.cache import cache
 
 from posts.models import Post, Group, User, Comment
+from .constants import *
 
 
 class PostURLTests(TestCase):
@@ -23,23 +24,23 @@ class PostURLTests(TestCase):
             text="Тест пост",
         )
         cls.templates = [
-            reverse("posts:index"),
-            reverse("posts:group_list", kwargs={"slug": cls.group.slug}),
-            reverse("posts:profile", kwargs={"username": cls.user.username}),
-            reverse("posts:post_detail", kwargs={"post_id": cls.post.id}),
+            reverse(INDEX_URL),
+            reverse(GROUP_LIST_URL, kwargs={"slug": cls.group.slug}),
+            reverse(PROFILE_URL, kwargs={"username": cls.user.username}),
+            reverse(POST_DETAIL_URL, kwargs={"post_id": cls.post.id}),
         ]
         cls.templates_url_names = {
-            reverse("posts:index"): "posts/index.html",
+            reverse(INDEX_URL): "posts/index.html",
             reverse(
-                "posts:group_list", kwargs={
-                    "slug": cls.group.slug}): "posts/group_list.html",
+                GROUP_LIST_URL, kwargs={
+                    "slug": cls.group.slug}): GROUP_LIST_TEMPLATE,
             reverse(
-                "posts:profile", kwargs={
-                    "username": cls.user.username}): "posts/profile.html",
+                PROFILE_URL, kwargs={
+                    "username": cls.user.username}): PROFILE_TEMPLATE,
             reverse(
-                "posts:post_detail", kwargs={
-                    "post_id": cls.post.id}): "posts/post_detail.html",
-            reverse("posts:post_create"): "posts/create_post.html",
+                POST_DETAIL_URL, kwargs={
+                    "post_id": cls.post.id}): POST_DETAIL_TEMPLATE,
+            reverse(POST_CREATE_URL): POST_CREATE_TEMPLATE,
         }
 
     def setUp(self):
@@ -65,7 +66,7 @@ class PostURLTests(TestCase):
     def test_posts_post_id_edit_url_exists_at_author(self):
         """Страница /posts/post_id/edit/ существует для автор."""
         response = self.authorized_client.get(
-            reverse("posts:post_edit", kwargs={"post_id": self.post.id})
+            reverse(POST_EDIT_URL, kwargs={"post_id": self.post.id})
         )
         self.assertEqual(response.status_code, HTTPStatus.OK)
 
@@ -73,13 +74,13 @@ class PostURLTests(TestCase):
         """Страница /create/ для не авторизованного пользователя
         редирект на логин."""
         response = self.guest_client.get(
-            reverse("posts:post_create"), follow=True)
+            reverse(POST_CREATE_URL), follow=True)
         self.assertRedirects(response, reverse(
-            "login") + "?next=" + reverse("posts:post_create"))
+            "login") + "?next=" + reverse(POST_CREATE_URL))
 
     def test_create_url_exists_for_authorized(self):
         """Страница /create/ существует для авторизованного пользователя."""
-        response = self.authorized_client.get(reverse("posts:post_create"))
+        response = self.authorized_client.get(reverse(POST_CREATE_URL))
         self.assertEqual(response.status_code, HTTPStatus.OK)
 
     def test_unexisting_page_at_desired_location(self):
@@ -90,25 +91,25 @@ class PostURLTests(TestCase):
     def test_post_detail_url_exists(self):
         """Страница /posts/post_id/ существует."""
         response = self.guest_client.get(
-            reverse("posts:post_detail", kwargs={"post_id": self.post.id}))
+            reverse(POST_DETAIL_URL, kwargs={"post_id": self.post.id}))
         self.assertEqual(response.status_code, HTTPStatus.OK)
 
     def test_group_detail_url_exists(self):
         """Страница /group/group_list/ существует."""
         response = self.guest_client.get(
-            reverse("posts:group_list", kwargs={"slug": self.group.slug}))
+            reverse(GROUP_LIST_URL, kwargs={"slug": self.group.slug}))
         self.assertEqual(response.status_code, HTTPStatus.OK)
 
     def test_profile_url_exists(self):
         """Страница /profile/ существует."""
         response = self.guest_client.get(
-            reverse("posts:profile", kwargs={"username": self.user.username}))
+            reverse(PROFILE_URL, kwargs={"username": self.user.username}))
         self.assertEqual(response.status_code, HTTPStatus.OK)
 
     def test_add_comment_url(self):
         """Тест что add_comment URL доступен."""
         response = self.authorized_client.get(
-            reverse("posts:add_comment", kwargs={"post_id": self.post.id}))
+            reverse(ADD_COMMENT_URL, kwargs={"post_id": self.post.id}))
         self.assertEqual(response.status_code, HTTPStatus.FOUND)
 
     def test_comment_delete_url(self):
@@ -116,18 +117,18 @@ class PostURLTests(TestCase):
         comment = Comment.objects.create(author=self.user, post=self.post,
                                          text="Тест комментарий")
         response = self.authorized_client.get(
-            reverse("posts:delete_comment", kwargs={"comment_id": comment.id}))
+            reverse(DELETE_COMMENT_URL, kwargs={"comment_id": comment.id}))
         self.assertEqual(response.status_code, HTTPStatus.FOUND)
 
     def test_follow_index_url(self):
         """Тест что follow_index URL доступен."""
-        response = self.authorized_client.get(reverse("posts:follow_index"))
+        response = self.authorized_client.get(reverse(FOLLOW_INDEX_URL))
         self.assertEqual(response.status_code, HTTPStatus.OK)
 
     def test_profile_follow_url(self):
         """Тест что profile_follow URL доступен."""
         response = self.authorized_client.get(
-            reverse("posts:profile_follow",
+            reverse(POST_FOLLOW_URL,
                     kwargs={"username": self.user2.username}))
         self.assertEqual(response.status_code, HTTPStatus.FOUND)
 
@@ -135,6 +136,6 @@ class PostURLTests(TestCase):
         """Тест что profile_unfollow URL доступен."""
         response = self.authorized_client.get(
             reverse(
-                "posts:profile_unfollow",
+                POST_UNFOLLOW_URL ,
                 kwargs={"username": self.user2.username}))
         self.assertEqual(response.status_code, HTTPStatus.FOUND)

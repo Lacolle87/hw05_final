@@ -105,8 +105,8 @@ def post_delete(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
     if request.method == 'POST':
         if post.author == request.user:
-            confirm = request.POST.get('confirm')
-            if confirm == 'yes':
+            confirm = request.POST.get('confirm') == 'True'
+            if confirm:
                 post.delete()
                 return redirect('posts:profile', post.author.username)
             else:

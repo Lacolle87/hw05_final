@@ -3,6 +3,7 @@ from django.test import Client, TestCase
 from django.urls import reverse
 
 from posts.models import Post, Group, User
+from .constants import *
 
 
 class PostFormTests(TestCase):
@@ -26,10 +27,10 @@ class PostFormTests(TestCase):
         posts_count = Post.objects.count()
         form_data = {"text": "Тестовый текс"}
         response = self.authorized_client.post(
-            reverse("posts:post_create"), data=form_data, follow=True
+            reverse(POST_CREATE_URL), data=form_data, follow=True
         )
         self.assertRedirects(
-            response, reverse("posts:profile",
+            response, reverse(PROFILE_URL,
                               kwargs={"username": self.user.username})
         )
         self.assertEqual(Post.objects.count(), posts_count + 1)
@@ -41,13 +42,13 @@ class PostFormTests(TestCase):
         posts_count = Post.objects.count()
         form_data = {"text": "Измененный текст", "group": self.group.id}
         response = self.authorized_client.post(
-            reverse("posts:post_edit", kwargs={"post_id": self.post.id}),
+            reverse(POST_EDIT_URL, kwargs={"post_id": self.post.id}),
             data=form_data,
             follow=True,
         )
         self.assertRedirects(
             response,
-            reverse("posts:post_detail", kwargs={"post_id": self.post.id})
+            reverse(POST_DETAIL_URL, kwargs={"post_id": self.post.id})
         )
         edited_post = Post.objects.get(id=self.post.id)
         self.assertEqual(Post.objects.count(), posts_count)
@@ -61,13 +62,13 @@ class PostFormTests(TestCase):
         posts_count = Post.objects.count()
         form_data = {"text": "Изменяем текст", "group": self.group.id}
         response = self.guest_client.post(
-            reverse("posts:post_edit", kwargs={"post_id": self.post.id}),
+            reverse(POST_EDIT_URL, kwargs={"post_id": self.post.id}),
             data=form_data,
             follow=True,
         )
         self.assertRedirects(
             response, reverse("login") + "?next=" + reverse(
-                "posts:post_edit", kwargs={"post_id": self.post.id})
+                POST_EDIT_URL, kwargs={"post_id": self.post.id})
         )
         self.assertEqual(Post.objects.count(), posts_count)
         self.assertFalse(Post.objects.filter(text="Изменяем текст").exists())

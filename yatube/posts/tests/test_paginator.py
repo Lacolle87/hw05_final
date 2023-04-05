@@ -1,6 +1,8 @@
 from django.test import Client, TestCase
 from django.urls import reverse
+
 from posts.models import Post, Group, User
+from .constants import *
 
 
 class PaginationTestCase(TestCase):
@@ -29,9 +31,9 @@ class PaginationTestCase(TestCase):
         posts_on_first_page = 10
         posts_on_second_page = 5
         urls = [
-            reverse('posts:index'),
-            reverse('posts:group_list', kwargs={'slug': self.group.slug}),
-            reverse('posts:profile', kwargs={'username': self.user.username}),
+            reverse(INDEX_URL),
+            reverse(GROUP_LIST_URL, kwargs={'slug': self.group.slug}),
+            reverse(PROFILE_URL, kwargs={'username': self.user.username}),
         ]
         for url in urls:
             with self.subTest(url=url):

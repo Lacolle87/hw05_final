@@ -6,10 +6,10 @@
     <p>{{ post.text }}</p>
     <form method="post">
         {% csrf_token %}
-        <button type="submit" name="confirm" value="yes" class="btn btn-outline-danger">
+        <button type="submit" name="confirm" value="True" class="btn btn-outline-danger">
             Да, удалить
         </button>
-        <button type="submit" name="confirm" value="no" class="btn btn-outline-dark">
+        <button type="submit" name="confirm" value="False" class="btn btn-outline-dark">
             Нет
         </button>
     </form>

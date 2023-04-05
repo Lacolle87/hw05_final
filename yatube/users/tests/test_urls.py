@@ -2,6 +2,7 @@ from http import HTTPStatus
 
 from django.contrib.auth import get_user_model
 from django.test import Client, TestCase
+from django.urls import reverse
 
 User = get_user_model()
 
@@ -15,12 +16,13 @@ class PostURLTests(TestCase):
         response = self.guest_client.get("/auth/signup/")
         self.assertEqual(response.status_code, HTTPStatus.OK)
 
-    def test_urls_uses_correct_template(self):
+    def test_urls_use_correct_template(self):
         """URL-адрес использует соответствующий шаблон."""
         templates_url_names = {
-            "/auth/signup/": "users/signup.html",
+            "users:signup": "users/signup.html",
         }
-        for url, template in templates_url_names.items():
-            with self.subTest(template=template):
+        for url_name, template_name in templates_url_names.items():
+            with self.subTest(template=template_name):
+                url = reverse(url_name)
                 response = self.guest_client.get(url)
-                self.assertTemplateUsed(response, template)
+                self.assertTemplateUsed(response, template_name)
