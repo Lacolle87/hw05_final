@@ -5,7 +5,23 @@ from django.test import Client, TestCase
 from django.core.cache import cache
 
 from posts.models import Post, Group, User, Comment
-from .constants import *
+from .constants import (
+    INDEX_URL,
+    GROUP_LIST_URL,
+    PROFILE_URL,
+    POST_DETAIL_URL,
+    POST_EDIT_URL,
+    POST_CREATE_URL,
+    ADD_COMMENT_URL,
+    DELETE_COMMENT_URL,
+    POST_FOLLOW_URL,
+    POST_UNFOLLOW_URL,
+    FOLLOW_INDEX_URL,
+    GROUP_LIST_TEMPLATE,
+    PROFILE_TEMPLATE,
+    POST_DETAIL_TEMPLATE,
+    POST_CREATE_TEMPLATE,
+)
 
 
 class PostURLTests(TestCase):

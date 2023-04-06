@@ -3,7 +3,12 @@ from django.test import Client, TestCase
 from django.urls import reverse
 
 from posts.models import Post, Group, User
-from .constants import *
+from .constants import (
+    PROFILE_URL,
+    POST_DETAIL_URL,
+    POST_EDIT_URL,
+    POST_CREATE_URL,
+)
 
 
 class PostFormTests(TestCase):

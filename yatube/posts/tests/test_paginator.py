@@ -2,7 +2,11 @@ from django.test import Client, TestCase
 from django.urls import reverse
 
 from posts.models import Post, Group, User
-from .constants import *
+from .constants import (
+    INDEX_URL,
+    GROUP_LIST_URL,
+    PROFILE_URL,
+)
 
 
 class PaginationTestCase(TestCase):

@@ -10,7 +10,24 @@ from http import HTTPStatus
 from django.core.files.uploadedfile import SimpleUploadedFile
 
 from posts.models import Post, Group, User, Follow, Comment
-from .constants import *
+from .constants import (
+    INDEX_URL,
+    GROUP_LIST_URL,
+    PROFILE_URL,
+    POST_DETAIL_URL,
+    POST_EDIT_URL,
+    POST_CREATE_URL,
+    ADD_COMMENT_URL,
+    POST_FOLLOW_URL,
+    POST_UNFOLLOW_URL,
+    FOLLOW_INDEX_URL,
+    INDEX_TEMPLATE,
+    GROUP_LIST_TEMPLATE,
+    PROFILE_TEMPLATE,
+    POST_DETAIL_TEMPLATE,
+    POST_EDIT_TEMPLATE,
+    POST_CREATE_TEMPLATE,
+)
 
 TEMP_MEDIA_ROOT = tempfile.mkdtemp(dir=settings.BASE_DIR)
 
