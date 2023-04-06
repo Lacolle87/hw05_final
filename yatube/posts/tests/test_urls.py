@@ -152,6 +152,6 @@ class PostURLTests(TestCase):
         """Тест что profile_unfollow URL доступен."""
         response = self.authorized_client.get(
             reverse(
-                POST_UNFOLLOW_URL ,
+                POST_UNFOLLOW_URL,
                 kwargs={"username": self.user2.username}))
         self.assertEqual(response.status_code, HTTPStatus.FOUND)
