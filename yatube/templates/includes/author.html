@@ -1,0 +1,9 @@
+<ul>
+    <li>
+        Автор: <a href="{% url 'posts:profile' post.author.username %}"
+                  class="text-dark">{{ post.author.get_full_name }}</a>
+    </li>
+    <li>
+        Дата публикации: {{ post.pub_date|date:"d E Y" }}
+    </li>
+</ul>

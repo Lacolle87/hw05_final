@@ -1,3 +1,4 @@
+from http import HTTPStatus
 from django.test import Client, TestCase
 from django.urls import reverse
 
@@ -12,20 +13,17 @@ from .constants import (
 class PaginationTestCase(TestCase):
     @classmethod
     def setUpTestData(cls):
-        cls.user = User.objects.create(
-            username='BobRock',
-        )
+        cls.user = User.objects.create(username='BobRock')
         cls.group = Group.objects.create(
             title='Тестовая группа',
             slug='test-group-slug',
-            description='Тестовое описание',
+            description='Тестовое описание'
         )
-        for i in range(15):
-            Post.objects.create(
-                text=f'Пост #{i}',
-                author=cls.user,
-                group=cls.group
-            )
+        posts = [
+            Post(text=f'Пост #{i}', author=cls.user, group=cls.group)
+            for i in range(15)
+        ]
+        Post.objects.bulk_create(posts)
 
     def setUp(self):
         self.guest_client = Client()
@@ -42,10 +40,10 @@ class PaginationTestCase(TestCase):
         for url in urls:
             with self.subTest(url=url):
                 response = self.guest_client.get(url)
-                self.assertEqual(response.status_code, 200)
+                self.assertEqual(response.status_code, HTTPStatus.OK)
                 self.assertEqual(len(response.context['page_obj']),
                                  posts_on_first_page)
                 response = self.guest_client.get(f"{url}?page=2")
-                self.assertEqual(response.status_code, 200)
+                self.assertEqual(response.status_code, HTTPStatus.OK)
                 self.assertEqual(len(response.context['page_obj']),
                                  posts_on_second_page)
