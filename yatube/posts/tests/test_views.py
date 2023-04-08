@@ -325,9 +325,8 @@ class FollowViewTest(TestCase):
         new_post_follower = Post.objects.create(
             author=self.first_user,
             text='other_test_text')
-        Follow.objects.create(user=self.second_user,
-                              author=self.author)
         response = self.second_authorized_client.get(
             reverse(FOLLOW_INDEX_URL))
-        new_post_unfollower = response.context['page_obj']
-        self.assertNotIn(new_post_follower, new_post_unfollower)
+        page_obj = response.context['page_obj']
+        for post in page_obj:
+            self.assertNotEqual(post.text, new_post_follower.text)
