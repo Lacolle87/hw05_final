@@ -2,7 +2,6 @@ from django.contrib import admin
 from .models import Post, Group, Comment
 
 
-# Я не понял как показать поля без CommentAdmin. fields не работает
 class CommentInline(admin.TabularInline):
     model = Comment
     fields = ('text', 'created', 'author',)
